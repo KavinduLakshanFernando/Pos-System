@@ -31,11 +31,11 @@ export default class CustomerModels{
         this._address = value;
     }
 
-    get mobile() {
+    get tel() {
         return this._tel;
     }
 
-    set mobile(value) {
+    set tel(value) {
         this._tel = value;
     }
 }
