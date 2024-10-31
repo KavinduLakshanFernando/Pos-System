@@ -113,54 +113,52 @@ $('#customer_update').on('click',function (){
 });
 
 $('#customer_delete').on('click',function (){
-    customer_array.splice(selected_customer_index,1);
+    // customer_array.splice(selected_customer_index,1);
+    //
+    // cleancustomerform();
+    // loadcustomertbl();
 
-    cleancustomerform();
-    loadcustomertbl();
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
 
-    // const swalWithBootstrapButtons = Swal.mixin({
-    //     customClass: {
-    //         confirmButton: "btn btn-success",
-    //         cancelButton: "btn btn-danger"
-    //     },
-    //     buttonsStyling: false
-    // });
-    // swalWithBootstrapButtons.fire({
-    //     title: "Are you sure?",
-    //     text: "You won't be able to revert this!",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonText: "Yes, delete it!",
-    //     cancelButtonText: "No, cancel!",
-    //     reverseButtons: true
-    // }).then((result) => {
-    //     if (result.isConfirmed) {
-    //
-    //         // ==========================================================
-    //         customer_array.splice(selected_customer_index, 1);
-    //
-    //         // clean customer form
-    //         cleancustomerform();
-    //
-    //         // reload the table
-    //         loadcustomertbl()
-    //         // ==========================================================
-    //
-    //         swalWithBootstrapButtons.fire({
-    //             title: "Deleted!",
-    //             text: "Your customer has been deleted.",
-    //             icon: "success"
-    //         });
-    //     } else if (
-    //         /* Read more about handling dismissals below */
-    //         result.dismiss === Swal.DismissReason.cancel
-    //     ) {
-    //         swalWithBootstrapButtons.fire({
-    //             title: "Cancelled",
-    //             text: "Your imaginary file is safe :)",
-    //             icon: "error"
-    //         });
-    //     }
-    // });
+            customer_array.splice(selected_customer_index, 1);
+
+            // clean customer form
+            cleancustomerform();
+
+            // reload the table
+            loadcustomertbl();
+
+            swalWithBootstrapButtons.fire({
+                title: "Deleted!",
+                text: "Your customer has been deleted.",
+                icon: "success"
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire({
+                title: "Cancelled",
+                text: "Your imaginary file is safe :)",
+                icon: "error"
+            });
+        }
+    });
 
 });

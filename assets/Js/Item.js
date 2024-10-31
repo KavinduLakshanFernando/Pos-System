@@ -100,3 +100,53 @@ $('#item_update').on('click',function (){
     clearitemform();
     loaditemTbl();
 });
+
+$('#item_delete').on('click',function (){
+    // item_array.splice(selected_item_index,1);
+    //
+    // clearitemform();
+    // loaditemTbl();
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            item_array.splice(selected_item_index, 1);
+
+            // clean item form
+            clearitemform();
+
+            // reload the table
+            loaditemTbl()
+
+            swalWithBootstrapButtons.fire({
+                title: "Deleted!",
+                text: "Your item has been deleted.",
+                icon: "success"
+            });
+        } else if (
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire({
+                title: "Cancelled",
+                text: "Your imaginary file is safe :)",
+                icon: "error"
+            });
+        }
+    });
+
+});
